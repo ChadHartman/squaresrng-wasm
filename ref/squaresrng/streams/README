@@ -1,0 +1,10 @@
+
+This directory contains streams example programs.
+
+streams1:  streams by counters with same key
+
+streams2:  streams by keys with same counters
+
+     make
+
+     make run

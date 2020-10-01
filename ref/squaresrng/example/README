@@ -1,0 +1,8 @@
+
+This directory contains a simple test program.
+
+An arithmetic average is computed for a billion random numbers.
+
+     make
+
+     make run

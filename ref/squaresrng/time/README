@@ -1,0 +1,12 @@
+
+1) squares- directory for running squares timetest (three rounds)
+
+2) squares4 - directory for running squares4 timetest (four rounds)
+
+3) philox - directory for running philox timetest
+
+cd to the directory of interest
+
+Type "make" to build the test
+
+Type "make run" to run the test

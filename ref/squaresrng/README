@@ -1,0 +1,36 @@
+
+1) arxiv.pdf  - Squares RNG arxiv paper
+
+2) bigcrush   - directory for running the BigCrush test
+
+3) example    - directory for running a simple example program
+
+4) keys       - directory for the keys utility which creates keys.h
+
+5) keys.h     - keys include file
+
+6) practrand  - directory for running the PractRand test
+
+7) squares.h  - squares include file (three rounds)
+
+8) squares4.h - squares include file (four rounds)
+
+9) streams    - directory for running the streams example programs
+
+a) time       - directory for running the timing tests
+
+
+
+License: The Squares RNG is available (free, but without warranty)
+
+as open-source software under the GNU General Public License.
+
+
+
+Contributions:  This software is free for any usage.  However, if you
+
+find it useful you may send a contribution to PayPal squaresrng@gmail.com
+
+
+
+Bernard Widynski  email: squaresrng@gmail.com
