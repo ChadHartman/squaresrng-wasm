@@ -6,8 +6,8 @@ function getExpected(counter, key) {
     return parseInt(result.toString("utf8"));
 }
 
-function getExpectedS(counter, key) {
-    let result = exec(`./bin/squaresrngs ${counter} ${key}`);
+function getExpectedS(counter, key, range) {
+    let result = exec(`./bin/squaresrngs ${counter} ${key} ${range}`);
     return parseInt(result.toString("utf8"));
 }
 
@@ -38,7 +38,7 @@ function testRand(wasm, ctr, key) {
     if (expected !== actual) {
         let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
         console.log(msg);
-        throw RuntimeError(msg);
+        throw Error(msg);
     }
 }
 
@@ -48,8 +48,9 @@ function testRandF(wasm, ctr, key) {
     let expected = (getExpected(ctr, key) / 0xffffffff);
     let actual = wasm.exports.randF(ctr, key);
     if (expected !== actual) {
-        console.log(`!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`);
-        return;
+        let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
+        console.log(msg);
+        throw Error(msg);
     }
 }
 
@@ -61,7 +62,7 @@ function testRandBound(wasm, ctr, key) {
     // 1 Added to be range inclusive
     let range = (max + 1) - min;
     let expected = min + (getExpected(ctr, key) % range);
-    let actual = wasm.exports.randB(min, max);
+    let actual = wasm.exports.randBound(min, max);
     if (expected !== actual) {
         console.log(`!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`);
         return;
@@ -73,13 +74,14 @@ function testRandBoundLemire(wasm, ctr, key) {
     wasm.key.value = key;
     let min = 5;
     let max = parseInt(ctr) + 10;
+    let range = max - min + 1;
     // 1 Added to be range inclusive
-    let range = (max + 1) - min;
-    let expected = min + (getExpected(ctr, key) % range);
-    let actual = wasm.exports.randBoundLemire(min, max);
+    let expected = min + getExpectedS(ctr, key, range);
+    let actual = wasm.exports.randBoundLemire(min, max) >>> 0;
     if (expected !== actual) {
-        console.log(`!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`);
-        return;
+        let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
+        console.log(msg);
+        throw Error(msg);
     }
 }
 
@@ -106,9 +108,9 @@ function testRandBoundLemire(wasm, ctr, key) {
     for (let key of keys) {
 
         for (let ctr = BigInt(0); ctr < iterations; ++ctr) {
-            // testRand(wasm, ctr, key);
-            // testRandF(wasm, ctr, key);
-            // testRandB(wasm, ctr, key);
+            testRand(wasm, ctr, key);
+            testRandF(wasm, ctr, key);
+            testRandBound(wasm, ctr, key);
             testRandBoundLemire(wasm, ctr, key);
         }
 

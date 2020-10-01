@@ -230,11 +230,14 @@
         )
 
         ;; return m >> 32;
-        (i32.wrap_i64
-            (i64.shr_u
-                (local.get $m)
-                (i64.const 32)
+        (i32.add
+            (i32.wrap_i64
+                (i64.shr_u
+                    (local.get $m)
+                    (i64.const 32)
+                )
             )
+            (local.get $min)
         )
     )
 )
