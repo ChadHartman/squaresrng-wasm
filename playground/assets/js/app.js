@@ -7,8 +7,6 @@
         .then(response => response.json());
 
     app.squaresrng = {
-        key: { value: BigInt(0) },
-        ctr: { value: BigInt(0) },
         methods: await fetch("assets/wasm/squaresrng.wasm")
             .then(response => response.arrayBuffer())
             .then(buffer => WebAssembly.instantiate(buffer))

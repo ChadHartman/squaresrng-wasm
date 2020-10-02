@@ -3,6 +3,28 @@
     (global $key (import "state" "key") (mut i64))
     (global $ctr (import "state" "ctr") (mut i64))
 
+    (func (export "key")
+        (result i64)
+        global.get $key
+    )
+
+    (func (export "ctr")
+        (result i64)
+        global.get $ctr
+    )
+
+    (func (export "setKey")
+        (param $v i64)
+
+        (global.set $key (local.get $v))
+    )
+
+    (func (export "setCtr")
+        (param $v i64)
+
+        (global.set $ctr (local.get $v))
+    )
+
     (func $rand
         (result i32)
 
