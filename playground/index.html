@@ -73,7 +73,7 @@
                         </select></div>
                 </div>
                 <div class="divTableRow">
-                    <div class="divTableCell">Counter</div>
+                    <div class="divTableCell">Initial Counter</div>
                     <div class="divTableCell">
                         <input id="counter" type="number" v-model="ctr">
                     </div>
@@ -98,7 +98,9 @@
             <h2>squaresrngs.randF()</h2>
             <p>{{ randF() }}</p>
             <h2>squaresrngs.randBound(min:number, max:number)</h2>
+            <p>{{ randBound() }}</p>
             <h2>squaresrngs.randBoundLemire(min:number, max:number)</h2>
+            <p>{{ randBoundLemire() }}</p>
         </div>
         <div id="section-stateless" v-if="implementation == 'squaresrng'">
             <h2>squaresrng.rand(ctr:BigInt, key:BigInt)</h2>
@@ -106,6 +108,7 @@
             <h2>squaresrng.randF(ctr:BigInt, key:BigInt)</h2>
             <p>{{ randF() }}</p>
             <h2>squaresrng.randBound(ctr:BigInt, key:BigInt, min:number, max:number)</h2>
+            <p>{{ randBound() }}</p>
         </div>
     </div>
     <div>

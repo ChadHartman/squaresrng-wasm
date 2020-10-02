@@ -38,7 +38,7 @@
             key: "",
             ctr: 0,
             min: 0,
-            max: 0
+            max: 10
         },
         methods: {
             rand() {
@@ -64,11 +64,36 @@
                 app.squaresrngs.ctr.value = ctr;
                 app.squaresrngs.key.value = key;
                 return app.squaresrngs.methods.randF();
+            },
+            randBound() {
+                let ctr = BigInt(this.ctr);
+                let key = BigInt(this.key);
+
+                if (this.max - this.min < 0) {
+                    return "Invalid range; max must be >= min";
+                }
+
+                if (this.implementation === "squaresrng") {
+                    return app.squaresrng.methods.randBound(ctr, key, this.min, this.max);
+                }
+
+                app.squaresrngs.ctr.value = ctr;
+                app.squaresrngs.key.value = key;
+                return app.squaresrngs.methods.randBound(this.min, this.max);
+            },
+            randBoundLemire() {
+                let ctr = BigInt(this.ctr);
+                let key = BigInt(this.key);
+
+                app.squaresrngs.ctr.value = ctr;
+                app.squaresrngs.key.value = key;
+                let result = app.squaresrngs.methods.randBound(this.min, this.max);
+                return `Final Counter: ${app.squaresrngs.ctr.value}; result: ${result}`
             }
         }
     });
 
+    // Randomly choose one of the 1000 keys
     app.vue.key = app.keys[Math.round(Math.random() * (app.keys.length - 1))];
-    app.vue.ctr = 5;
 
 })(window.app = {});
