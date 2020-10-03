@@ -8,6 +8,15 @@
             font-family: sans-serif;
         }
 
+        h1 {
+            text-align: center;
+        }
+
+        #vueapp {
+            max-width: 1024px;
+            margin: auto;
+        }
+
         .divTable {
             display: table;
             width: 100%;
@@ -27,6 +36,12 @@
             border: 1px solid #999999;
             display: table-cell;
             padding: 3px 10px;
+        }
+
+        .divTableCell:first-child,
+        .divTableHead:first-child {
+            text-align: right;
+            width: 128px;
         }
 
         .divTableHeading {
@@ -55,12 +70,11 @@
                 <div class="divTableRow">
                     <div class="divTableCell">Implementation</div>
                     <div class="divTableCell">
-                        <input id="impl-stateful" type="radio" name="state" v-model="implementation"
-                            value="squaresrngs" />
+                        <input id="impl-stateful" type="radio" name="state" v-model="implementation" value="stateful" />
                         <label for="impl-stateful">Stateful</label>
                         <br />
                         <input id="impl-stateless" type="radio" name="state" v-model="implementation"
-                            value="squaresrng" />
+                            value="stateless" />
                         <label for="impl-stateless">Stateless</label></div>
                 </div>
                 <div class="divTableRow">
@@ -75,24 +89,48 @@
                 <div class="divTableRow">
                     <div class="divTableCell">Initial Counter</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="ctr">
+                        <input id="counter" type="number" v-model="ctr_init" />
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Min</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="min">
+                        <input id="counter" type="number" v-model="min" />
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Max</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="max">
+                        <input id="counter" type="number" v-model="max" />
+                    </div>
+                </div>
+                <div class="divTableRow" v-if="implementation === 'stateful'">
+                    <div class="divTableCell">Current Counter</div>
+                    <div class="divTableCell">
+                        <input id="counter" type="number" v-model="getCtr()" disabled="true" />
+                    </div>
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">Random Integer</div>
+                    <div class="divTableCell">
+                        <input id="counter" type="number" v-model="rand()" disabled="true" />
+                    </div>
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">Random Float</div>
+                    <div class="divTableCell">
+                        <input id="counter" type="number" v-model="randF()" disabled="true" />
+                    </div>
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">Random Ranged</div>
+                    <div class="divTableCell">
+                        <input id="counter" type="number" v-model="randBound()" disabled="true" />
                     </div>
                 </div>
             </div>
         </div>
-        <div id="section-stateful" v-if="implementation == 'squaresrngs'">
+        <!-- <div id="section-stateful" v-if="implementation === 'stateful'">
             <h2>squaresrngs.rand()</h2>
             <p>{{ rand() }}</p>
             <h2>squaresrngs.randF()</h2>
@@ -102,14 +140,14 @@
             <h2>squaresrngs.randBoundLemire(min:number, max:number)</h2>
             <p>{{ randBoundLemire() }}</p>
         </div>
-        <div id="section-stateless" v-if="implementation == 'squaresrng'">
+        <div id="section-stateless" v-if="implementation === 'stateless'">
             <h2>squaresrng.rand(ctr:BigInt, key:BigInt)</h2>
             <p>{{ rand() }}</p>
             <h2>squaresrng.randF(ctr:BigInt, key:BigInt)</h2>
             <p>{{ randF() }}</p>
             <h2>squaresrng.randBound(ctr:BigInt, key:BigInt, min:number, max:number)</h2>
             <p>{{ randBound() }}</p>
-        </div>
+        </div> -->
     </div>
     <div>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
