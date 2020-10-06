@@ -10,7 +10,7 @@ A `counter` is also a 64-bit unsigned integer and is like an index that represen
 
 ## `wasm/squaresrng.wasm`
 
-This is the "stateless" version; both `counter` and `key` must be passed to it per API use.
+This is the _stateless_ version; both `counter` and `key` must be passed to it per API use.
 
 ### API
 
@@ -26,7 +26,7 @@ This is the "stateless" version; both `counter` and `key` must be passed to it p
 
 ## `wasm/squaresrngs.wasm`
 
-This is the "stateful" version; the module possesses `ctr` and `key` global params.
+This is the _stateful_ version; the module possesses `ctr` and `key` global params.
 
 ### API
 
@@ -64,7 +64,7 @@ The Wasm module can be used in both a node and web context. For a node example; 
 
 let instance = await fetch("wasm/squaresrngs.wasm")
     .then(response => response.arrayBuffer())
-    .then(buffer => WebAssembly.instantiate(buffer)
+    .then(buffer => WebAssembly.instantiate(buffer))
     .then(wasm => wasm.instance.exports);
 
 instance.setKey(BigInt(0xfc819a732d6c7841));
