@@ -93,6 +93,9 @@ function testRandBoundLemire(wasm, ctr, key) {
 
     console.log(`Begin testing ${keys.length} keys...`);
     let wasm = await getWasm();
+    if (wasm.version() !== 1) {
+        throw Error(`Expected version 1; got ${wasm.version()}`);
+    }
 
     for (let key of keys) {
 

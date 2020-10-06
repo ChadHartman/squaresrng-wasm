@@ -1,4 +1,12 @@
 (module
+
+    (global $ver i32 (i32.const 1))
+
+    (func (export "version")
+        (result i32)
+        global.get $ver
+    )
+
     (func $rand
         (param $ctr i64)
         (param $key i64)

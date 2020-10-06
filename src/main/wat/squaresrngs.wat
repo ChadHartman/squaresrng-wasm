@@ -1,7 +1,13 @@
 (module
 
+    (global $ver i32 (i32.const 1))
     (global $key (mut i64) (i64.const 0))
     (global $ctr (mut i64) (i64.const 0))
+
+    (func (export "version")
+        (result i32)
+        global.get $ver
+    )
 
     (func (export "key")
         (result i64)
