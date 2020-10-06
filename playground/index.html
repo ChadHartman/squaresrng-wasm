@@ -121,11 +121,19 @@
                 Random Integer
             </h2>
             <div v-if="section_rand">
-                <code>rand(counter:BigInt,key:BigInt):number</code>
+                <code v-if="implementation==='stateless'">rand(counter:BigInt, key:BigInt):number</code>
+                <code v-if="implementation!=='stateless'">rand():number</code>
                 <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
                     desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
-                    <code>4,294,967,295</code>.</p>
-                <p>When called 100 times with counter iterated each time:</p>
+                    <code>4,294,967,295</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times (and <code>>>>0</code>)
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
                 <canvas ref="chart-rand" width="512" height="256"></canvas>
             </div>
         </div>
@@ -137,11 +145,18 @@
                 Random Float
             </h2>
             <div v-if="section_randf">
-                <code>rand(counter:BigInt,key:BigInt):number</code>
-                <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
-                    desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
-                    <code>4,294,967,295</code>.</p>
-                <p>When called 100 times with counter iterated each time:</p>
+                <code v-if="implementation==='stateless'">randF(counter:BigInt,key:BigInt):number</code>
+                <code v-if="implementation!=='stateless'">randF():number</code>
+                <p>
+                    Produces a floating point number <code>0</code> to <code>1</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
                 <canvas ref="chart-randf" width="512" height="256"></canvas>
             </div>
         </div>
@@ -153,11 +168,19 @@
                 Random Bound Integer
             </h2>
             <div v-if="section_randbound">
-                <code>rand(counter:BigInt,key:BigInt):number</code>
-                <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
-                    desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
-                    <code>4,294,967,295</code>.</p>
-                <p>When called 100 times with counter iterated each time:</p>
+                <code
+                    v-if="implementation==='stateless'">randBound(counter:BigInt, key:BigInt, min:number, max:number):number</code>
+                <code v-if="implementation!=='stateless'">randBound(min:number, max:number):number</code>
+                <p>
+                    Produces a modulo biased bound integer inclusively <code>min</code> to <code>max</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
                 <canvas ref="chart-randbound" width="512" height="256"></canvas>
             </div>
         </div>
@@ -171,11 +194,12 @@
                 Random Lemire Bound Integer
             </h2>
             <div v-if="section_randboundlemire">
-                <code>rand(counter:BigInt,key:BigInt):number</code>
-                <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
-                    desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
-                    <code>4,294,967,295</code>.</p>
-                <p>When called 100 times with counter iterated each time:</p>
+                <code>randBoundLemire(min:number, max:number):number</code>
+                <p>
+                    Produces a Lemire unbiased bound integer inclusively <code>min</code> to <code>max</code>.
+                    Every invocation will increment its <code>ctr()</code>.
+                </p>
+                <p> When called 100 times : </p>
                 <canvas ref="chart-randboundlemire" width="512" height="256"></canvas>
             </div>
         </div>

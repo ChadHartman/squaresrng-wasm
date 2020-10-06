@@ -2,6 +2,7 @@
 
 (app => {
     function yFormatter(label) {
+
         if (label < 1000) {
             return label;
         }

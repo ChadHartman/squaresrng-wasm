@@ -81,8 +81,8 @@
                 }
                 let ctx = this.$refs["chart-rand"].getContext("2d");
                 let rng = this.implementation === IMPL_STATELESS ?
-                    () => prngStateless.rand(ctr++, key) :
-                    () => prngStateful.rand();
+                    () => prngStateless.rand(ctr++, key) >>> 0 :
+                    () => prngStateful.rand() >>> 0;
                 app.chart(ctx, rng);
             },
             renderRandFChart(ctr, key) {
