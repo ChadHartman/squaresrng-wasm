@@ -134,7 +134,7 @@
                     <span v-if="implementation==='stateless'">with counter iterated each time</span>
                     :
                 </p>
-                <canvas ref="chart-rand" width="512" height="256"></canvas>
+                <canvas id="chart-rand" ref="chart-rand" width="512" height="256"></canvas>
             </div>
         </div>
         <hr />
@@ -157,7 +157,7 @@
                     <span v-if="implementation==='stateless'">with counter iterated each time</span>
                     :
                 </p>
-                <canvas ref="chart-randf" width="512" height="256"></canvas>
+                <canvas id="chart-randf" ref="chart-randf" width="512" height="256"></canvas>
             </div>
         </div>
         <hr />
@@ -181,7 +181,7 @@
                     <span v-if="implementation==='stateless'">with counter iterated each time</span>
                     :
                 </p>
-                <canvas ref="chart-randbound" width="512" height="256"></canvas>
+                <canvas id="chart-randbound" ref="chart-randbound" width="512" height="256"></canvas>
             </div>
         </div>
         <hr v-if="implementation=='stateful'" />
@@ -200,7 +200,7 @@
                     Every invocation will increment its <code>ctr()</code>.
                 </p>
                 <p> When called 100 times : </p>
-                <canvas ref="chart-randboundlemire" width="512" height="256"></canvas>
+                <canvas id="chart-randboundlemire" ref="chart-randboundlemire" width="512" height="256"></canvas>
             </div>
         </div>
     </div>
