@@ -7,11 +7,17 @@
     <style>
         html {
             font-family: sans-serif;
-            background-color: #eee;
+            background-color: #e0e0e0;
+            font-size: 12pt;
         }
 
         h1 {
             text-align: center;
+            font-size: 16pt;
+        }
+
+        h2 {
+            font-size: 14pt;
         }
 
         h2 span {
@@ -20,7 +26,7 @@
 
         #vueapp {
             padding: 5px;
-            background-color: #efefef;
+            background-color: #f1f1f1;
             max-width: 800px;
             margin: auto;
             border-radius: 5px;
@@ -37,46 +43,26 @@
             display: block;
         }
 
-        .divTable {
+        .tbl {
             display: table;
             width: 100%;
         }
 
-        .divTableRow {
+        .tblrow {
             display: table-row;
         }
 
-        .divTableHeading {
-            background-color: #EEE;
-            display: table-header-group;
-        }
-
-        .divTableCell,
-        .divTableHead {
-            border: 1px solid #999999;
+        .tblcell {
             display: table-cell;
             padding: 3px 10px;
         }
 
-        .divTableCell:first-child,
-        .divTableHead:first-child {
+        .tblcell:first-child {
             text-align: right;
             width: 128px;
         }
 
-        .divTableHeading {
-            background-color: #EEE;
-            display: table-header-group;
-            font-weight: bold;
-        }
-
-        .divTableFoot {
-            background-color: #EEE;
-            display: table-footer-group;
-            font-weight: bold;
-        }
-
-        .divTableBody {
+        .tblbody {
             display: table-row-group;
         }
     </style>
@@ -85,11 +71,11 @@
 <body>
     <div id="vueapp">
         <h1>SquaresRNG</h1>
-        <div class="divTable">
-            <div class="divTableBody">
-                <div class="divTableRow">
-                    <div class="divTableCell">Implementation</div>
-                    <div class="divTableCell">
+        <div class="tbl">
+            <div class="tblbody">
+                <div class="tblrow">
+                    <div class="tblcell">Implementation</div>
+                    <div class="tblcell">
                         <input id="impl-stateful" type="radio" name="state" v-model="implementation" value="stateful" />
                         <label for="impl-stateful">Stateful</label>
                         <br />
@@ -97,30 +83,30 @@
                             value="stateless" />
                         <label for="impl-stateless">Stateless</label></div>
                 </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">Key</div>
-                    <div class="divTableCell">
+                <div class="tblrow">
+                    <div class="tblcell">Key</div>
+                    <div class="tblcell">
                         <select id="key-select" v-model="key">
                             <option v-for="k in keys" v-bind:value="k">
                                 {{ k }}
                             </option>
                         </select></div>
                 </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">Initial Counter</div>
-                    <div class="divTableCell">
+                <div class="tblrow">
+                    <div class="tblcell">Initial Counter</div>
+                    <div class="tblcell">
                         <input type="number" v-model="counter" />
                     </div>
                 </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">Min</div>
-                    <div class="divTableCell">
+                <div class="tblrow">
+                    <div class="tblcell">Min</div>
+                    <div class="tblcell">
                         <input type="number" v-model="min" />
                     </div>
                 </div>
-                <div class="divTableRow">
-                    <div class="divTableCell">Max</div>
-                    <div class="divTableCell">
+                <div class="tblrow">
+                    <div class="tblcell">Max</div>
+                    <div class="tblcell">
                         <input type="number" v-model="max" />
                     </div>
                 </div>
@@ -130,10 +116,9 @@
         <hr />
         <div class="section">
             <h2>
-                (
-                <span v-if="!section_rand" v-on:click="section_rand = !section_rand">+</span>
-                <span v-if="section_rand" v-on:click="section_rand = !section_rand">-</span>
-                ) Random Integer
+                <span v-if="!section_rand" v-on:click="section_rand = !section_rand">[+]</span>
+                <span v-if="section_rand" v-on:click="section_rand = !section_rand">[-]</span>
+                Random Integer
             </h2>
             <div v-if="section_rand">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
@@ -147,10 +132,9 @@
         <hr />
         <div class="section">
             <h2>
-                (
-                <span v-if="!section_randf" v-on:click="section_randf = !section_randf">+</span>
-                <span v-if="section_randf" v-on:click="section_randf = !section_randf">-</span>
-                ) Random Float
+                <span v-if="!section_randf" v-on:click="section_randf = !section_randf">[+]</span>
+                <span v-if="section_randf" v-on:click="section_randf = !section_randf">[-]</span>
+                Random Float
             </h2>
             <div v-if="section_randf">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
@@ -164,10 +148,9 @@
         <hr />
         <div class="section">
             <h2>
-                (
-                <span v-if="!section_randbound" v-on:click="section_randbound = !section_randbound">+</span>
-                <span v-if="section_randbound" v-on:click="section_randbound = !section_randbound">-</span>
-                ) Random Bound Integer
+                <span v-if="!section_randbound" v-on:click="section_randbound = !section_randbound">[+]</span>
+                <span v-if="section_randbound" v-on:click="section_randbound = !section_randbound">[-]</span>
+                Random Bound Integer
             </h2>
             <div v-if="section_randbound">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
@@ -181,12 +164,11 @@
         <hr v-if="implementation=='stateful'" />
         <div class="section" v-if="implementation=='stateful'">
             <h2>
-                (
                 <span v-if="!section_randboundlemire"
-                    v-on:click="section_randboundlemire = !section_randboundlemire">+</span>
+                    v-on:click="section_randboundlemire = !section_randboundlemire">[+]</span>
                 <span v-if="section_randboundlemire"
-                    v-on:click="section_randboundlemire = !section_randboundlemire">-</span>
-                ) Random Lemire Bound Integer
+                    v-on:click="section_randboundlemire = !section_randboundlemire">[-]</span>
+                Random Lemire Bound Integer
             </h2>
             <div v-if="section_randboundlemire">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
