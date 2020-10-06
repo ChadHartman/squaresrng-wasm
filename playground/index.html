@@ -3,9 +3,11 @@
 <meta charset="utf-8">
 
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css">
     <style>
         html {
             font-family: sans-serif;
+            background-color: #eee;
         }
 
         h1 {
@@ -15,6 +17,22 @@
         #vueapp {
             max-width: 1024px;
             margin: auto;
+        }
+
+        canvas {
+            width: 512px !important;
+            height: 256px !important;
+        }
+
+        code {
+            background-color: #ddd;
+            padding: 3px;
+        }
+
+        .section {
+            border: 1px solid #ddd;
+            padding: 3px;
+            display: inline-block;
         }
 
         .divTable {
@@ -89,22 +107,22 @@
                 <div class="divTableRow">
                     <div class="divTableCell">Initial Counter</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="ctr_init" />
+                        <input type="number" v-model="counter" />
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Min</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="min" />
+                        <input type="number" v-model="min" />
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Max</div>
                     <div class="divTableCell">
-                        <input id="counter" type="number" v-model="max" />
+                        <input type="number" v-model="max" />
                     </div>
                 </div>
-                <div class="divTableRow" v-if="implementation === 'stateful'">
+                <!-- <div class="divTableRow" v-if="implementation === 'stateful'">
                     <div class="divTableCell">Current Counter</div>
                     <div class="divTableCell">
                         <input id="counter" type="number" v-model="getCtr()" disabled="true" />
@@ -114,23 +132,30 @@
                     <div class="divTableCell">Random Integer</div>
                     <div class="divTableCell">
                         <input id="counter" type="number" v-model="rand()" disabled="true" />
+                        <br />
+                        <canvas ref="chart-rand" width="512" height="256"></canvas>
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Random Float</div>
                     <div class="divTableCell">
                         <input id="counter" type="number" v-model="randF()" disabled="true" />
+                        <br />
+                        <canvas ref="chart-randf" width="512" height="256"></canvas>
                     </div>
                 </div>
                 <div class="divTableRow">
                     <div class="divTableCell">Random Ranged</div>
                     <div class="divTableCell">
                         <input id="counter" type="number" v-model="randBound()" disabled="true" />
+                        <br />
+                        <canvas ref="chart-randbound" width="512" height="256"></canvas>
                     </div>
                 </div>
+            </div> -->
             </div>
-        </div>
-        <!-- <div id="section-stateful" v-if="implementation === 'stateful'">
+
+            <!-- <div id="section-stateful" v-if="implementation === 'stateful'">
             <h2>squaresrngs.rand()</h2>
             <p>{{ rand() }}</p>
             <h2>squaresrngs.randF()</h2>
@@ -148,8 +173,19 @@
             <h2>squaresrng.randBound(ctr:BigInt, key:BigInt, min:number, max:number)</h2>
             <p>{{ randBound() }}</p>
         </div> -->
+        </div>
+        <div class="section">
+            <h2>Random Integer</h2>
+            <code>rand(counter:BigInt,key:BigInt):number</code>
+            <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
+                desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
+                <code>4,294,967,295</code>.</p>
+            <p>When called 100 times with counter iterated each time:</p>
+            <canvas ref="chart-rand" width="512" height="256"></canvas>
+        </div>
     </div>
     <div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="assets/js/app.js"></script>
     </div>

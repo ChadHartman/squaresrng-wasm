@@ -1,7 +1,7 @@
 (module
 
-    (global $key (import "state" "key") (mut i64))
-    (global $ctr (import "state" "ctr") (mut i64))
+    (global $key (mut i64) (i64.const 0))
+    (global $ctr (mut i64) (i64.const 0))
 
     (func (export "key")
         (result i64)

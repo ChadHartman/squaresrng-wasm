@@ -13,28 +13,17 @@ function getExpectedS(counter, key, range) {
 
 async function getWasm() {
     let binary = new Uint8Array(fs.readFileSync("wasm/squaresrngs.wasm"));
-    let importObj = {
-        "state": {
-            "key": new WebAssembly.Global({ value: "i64", mutable: true }, BigInt(0)),
-            "ctr": new WebAssembly.Global({ value: "i64", mutable: true }, BigInt(0))
-        }
-    };
 
-    return await WebAssembly.instantiate(binary, importObj).then(res => {
-        return {
-            exports: res.instance.exports,
-            key: importObj.state.key,
-            ctr: importObj.state.ctr
-        }
-    });
+    return await WebAssembly.instantiate(binary)
+        .then(res => res.instance.exports);
 }
 
 function testRand(wasm, ctr, key) {
-    wasm.ctr.value = ctr;
-    wasm.key.value = key;
+    wasm.setCtr(ctr);
+    wasm.setKey(key);
     let expected = getExpected(ctr, key);
     // Convert to uint
-    let actual = wasm.exports.rand() >>> 0;
+    let actual = wasm.rand() >>> 0;
     if (expected !== actual) {
         let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
         console.log(msg);
@@ -43,10 +32,10 @@ function testRand(wasm, ctr, key) {
 }
 
 function testRandF(wasm, ctr, key) {
-    wasm.ctr.value = ctr;
-    wasm.key.value = key;
+    wasm.setCtr(ctr);
+    wasm.setKey(key);
     let expected = (getExpected(ctr, key) / 0xffffffff);
-    let actual = wasm.exports.randF(ctr, key);
+    let actual = wasm.randF(ctr, key);
     if (expected !== actual) {
         let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
         console.log(msg);
@@ -55,14 +44,14 @@ function testRandF(wasm, ctr, key) {
 }
 
 function testRandBound(wasm, ctr, key) {
-    wasm.ctr.value = ctr;
-    wasm.key.value = key;
+    wasm.setCtr(ctr);
+    wasm.setKey(key);
     let min = 5;
     let max = parseInt(ctr) + 10;
     // 1 Added to be range inclusive
     let range = (max + 1) - min;
     let expected = min + (getExpected(ctr, key) % range);
-    let actual = wasm.exports.randBound(min, max);
+    let actual = wasm.randBound(min, max);
     if (expected !== actual) {
         console.log(`!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`);
         return;
@@ -70,14 +59,14 @@ function testRandBound(wasm, ctr, key) {
 }
 
 function testRandBoundLemire(wasm, ctr, key) {
-    wasm.ctr.value = ctr;
-    wasm.key.value = key;
+    wasm.setCtr(ctr);
+    wasm.setKey(key);
     let min = 5;
     let max = parseInt(ctr) + 10;
     let range = max - min + 1;
     // 1 Added to be range inclusive
     let expected = min + getExpectedS(ctr, key, range);
-    let actual = wasm.exports.randBoundLemire(min, max) >>> 0;
+    let actual = wasm.randBoundLemire(min, max) >>> 0;
     if (expected !== actual) {
         let msg = `!!! Divergent counter=${ctr}; expected=${expected}; actual=${actual} !!!`
         console.log(msg);
