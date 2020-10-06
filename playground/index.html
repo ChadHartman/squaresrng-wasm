@@ -21,7 +21,7 @@
         #vueapp {
             padding: 5px;
             background-color: #efefef;
-            max-width: 1024px;
+            max-width: 800px;
             margin: auto;
             border-radius: 5px;
             box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -131,11 +131,11 @@
         <div class="section">
             <h2>
                 (
-                <span v-if="!section.rand" v-on:click="section.rand = !section.rand">+</span>
-                <span v-if="section.rand" v-on:click="section.rand = !section.rand">-</span>
+                <span v-if="!section_rand" v-on:click="section_rand = !section_rand">+</span>
+                <span v-if="section_rand" v-on:click="section_rand = !section_rand">-</span>
                 ) Random Integer
             </h2>
-            <div v-if="section.rand">
+            <div v-if="section_rand">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
                 <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
                     desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
@@ -148,11 +148,11 @@
         <div class="section">
             <h2>
                 (
-                <span v-if="!section.randf" v-on:click="section.randf = !section.randf">+</span>
-                <span v-if="section.randf" v-on:click="section.randf = !section.randf">-</span>
+                <span v-if="!section_randf" v-on:click="section_randf = !section_randf">+</span>
+                <span v-if="section_randf" v-on:click="section_randf = !section_randf">-</span>
                 ) Random Float
             </h2>
-            <div v-if="section.randf">
+            <div v-if="section_randf">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
                 <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
                     desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
@@ -165,11 +165,11 @@
         <div class="section">
             <h2>
                 (
-                <span v-if="!section.randbound" v-on:click="section.randbound = !section.randbound">+</span>
-                <span v-if="section.randbound" v-on:click="section.randbound = !section.randbound">-</span>
+                <span v-if="!section_randbound" v-on:click="section_randbound = !section_randbound">+</span>
+                <span v-if="section_randbound" v-on:click="section_randbound = !section_randbound">-</span>
                 ) Random Bound Integer
             </h2>
-            <div v-if="section.randbound">
+            <div v-if="section_randbound">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
                 <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
                     desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
@@ -182,13 +182,13 @@
         <div class="section" v-if="implementation=='stateful'">
             <h2>
                 (
-                <span v-if="!section.randboundlemire"
-                    v-on:click="section.randboundlemire = !section.randboundlemire">+</span>
-                <span v-if="section.randboundlemire"
-                    v-on:click="section.randboundlemire = !section.randboundlemire">-</span>
+                <span v-if="!section_randboundlemire"
+                    v-on:click="section_randboundlemire = !section_randboundlemire">+</span>
+                <span v-if="section_randboundlemire"
+                    v-on:click="section_randboundlemire = !section_randboundlemire">-</span>
                 ) Random Lemire Bound Integer
             </h2>
-            <div v-if="section.randboundlemire">
+            <div v-if="section_randboundlemire">
                 <code>rand(counter:BigInt,key:BigInt):number</code>
                 <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
                     desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
@@ -201,6 +201,7 @@
     <div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="assets/js/chart.js"></script>
         <script src="assets/js/app.js"></script>
     </div>
 </body>
