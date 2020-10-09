@@ -1,0 +1,37 @@
+===========================================================================
+
+The BigCrush test was run on a Windows 10 computer. 
+
+Cygwin64 and TestU01 will need to be installed.
+
+Information regarding this may be found at
+
+     http://www.cygwin.com
+
+     http://simul.iro.umontreal.ca/testu01/tu01.html
+
+Note: I used the following commands when building TestU01:
+
+     unzip TestU01.zip
+
+     cd TestU01-1.2.3
+
+     ./configure --disable-shared --prefix=/usr
+
+     make
+
+     make install 
+
+===========================================================================
+
+The BigCrush test program may be built by typing make:
+
+     make
+
+The test may be run by typing make run:
+
+     make run
+
+The file bigcrushtest.out in this directory is the output file I obtained when
+
+running the test.

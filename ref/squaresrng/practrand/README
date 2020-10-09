@@ -1,0 +1,27 @@
+===========================================================================
+
+The PractRand test was run on a Windows 10 computer. 
+
+Cygwin64 will need to be installed.
+
+Information regarding this may be found at
+
+     http://www.cygwin.com
+
+I obtained RNG_test.exe from
+
+     http://pracrand.sourceforge.net
+
+===========================================================================
+
+The PractRand generation program squares may be built by typing make
+
+     make
+
+The test may be run by typing make run:
+
+     make run
+
+The file practrandtest.out in this directory is the output file I obtained when
+
+running the test through 16 terabytes.

@@ -1,0 +1,9 @@
+{
+    "scripts": {
+        "build_squaresrng":"wat2wasm src/main/wat/squaresrng.wat -o wasm/squaresrng.wasm",
+        "build_squaresrngs":"wat2wasm src/main/wat/squaresrngs.wat -o wasm/squaresrngs.wasm",
+        "build_bin": "g++ src/test/cpp/main.cpp -o bin/squaresrng && g++ src/test/cpp/mains.cpp -o bin/squaresrngs",
+        "test_squaresrng": "npm run build_squaresrng && node --experimental-wasm-bigint test/test_squaresrng.js",
+        "test_squaresrngs": "npm run build_squaresrngs && node --experimental-wasm-bigint test/test_squaresrngs.js"
+    }
+}

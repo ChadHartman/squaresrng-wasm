@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css">
+    <style>
+        html {
+            font-family: sans-serif;
+            background-color: #e0e0e0;
+            font-size: 12pt;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 16pt;
+        }
+
+        h2 {
+            font-size: 14pt;
+        }
+
+        h2 span {
+            cursor: pointer;
+        }
+
+        #vueapp {
+            padding: 5px;
+            background-color: #f1f1f1;
+            max-width: 800px;
+            margin: auto;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        code {
+            background-color: #ddd;
+            padding: 3px;
+        }
+
+        .section {
+            padding: 3px;
+            display: block;
+        }
+
+        .tbl {
+            display: table;
+            width: 100%;
+        }
+
+        .tblrow {
+            display: table-row;
+        }
+
+        .tblcell {
+            display: table-cell;
+            padding: 3px 10px;
+        }
+
+        .tblcell:first-child {
+            text-align: right;
+            width: 128px;
+        }
+
+        .tblbody {
+            display: table-row-group;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vueapp">
+        <h1>SquaresRNG</h1>
+        <div class="tbl">
+            <div class="tblbody">
+                <div class="tblrow">
+                    <div class="tblcell">Implementation</div>
+                    <div class="tblcell">
+                        <input id="impl-stateful" type="radio" name="state" v-model="implementation" value="stateful" />
+                        <label for="impl-stateful">Stateful</label>
+                        <br />
+                        <input id="impl-stateless" type="radio" name="state" v-model="implementation"
+                            value="stateless" />
+                        <label for="impl-stateless">Stateless</label></div>
+                </div>
+                <div class="tblrow">
+                    <div class="tblcell">Key</div>
+                    <div class="tblcell">
+                        <select id="key-select" v-model="key">
+                            <option v-for="k in keys" v-bind:value="k">
+                                {{ k }}
+                            </option>
+                        </select></div>
+                </div>
+                <div class="tblrow">
+                    <div class="tblcell">Initial Counter</div>
+                    <div class="tblcell">
+                        <input type="number" v-model="counter" />
+                    </div>
+                </div>
+                <div class="tblrow">
+                    <div class="tblcell">Min</div>
+                    <div class="tblcell">
+                        <input type="number" v-model="min" />
+                    </div>
+                </div>
+                <div class="tblrow">
+                    <div class="tblcell">Max</div>
+                    <div class="tblcell">
+                        <input type="number" v-model="max" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+        <div class="section">
+            <h2>
+                <span v-if="!section_rand" v-on:click="section_rand = !section_rand">[+]</span>
+                <span v-if="section_rand" v-on:click="section_rand = !section_rand">[-]</span>
+                Random Integer
+            </h2>
+            <div v-if="section_rand">
+                <code v-if="implementation==='stateless'">rand(counter:BigInt, key:BigInt):number</code>
+                <code v-if="implementation!=='stateless'">rand():number</code>
+                <p>Produces a number <code>-2,147,483,648</code> to <code>2,147,483,647</code>. If a positive integer is
+                    desired; the result can be <code>&gt;&gt;&gt;0</code> to produce a number <code>0</code> to
+                    <code>4,294,967,295</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times (and <code>>>>0</code>)
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
+                <canvas id="chart-rand" ref="chart-rand" width="512" height="256"></canvas>
+            </div>
+        </div>
+        <hr />
+        <div class="section">
+            <h2>
+                <span v-if="!section_randf" v-on:click="section_randf = !section_randf">[+]</span>
+                <span v-if="section_randf" v-on:click="section_randf = !section_randf">[-]</span>
+                Random Float
+            </h2>
+            <div v-if="section_randf">
+                <code v-if="implementation==='stateless'">randF(counter:BigInt,key:BigInt):number</code>
+                <code v-if="implementation!=='stateless'">randF():number</code>
+                <p>
+                    Produces a floating point number <code>0</code> to <code>1</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
+                <canvas id="chart-randf" ref="chart-randf" width="512" height="256"></canvas>
+            </div>
+        </div>
+        <hr />
+        <div class="section">
+            <h2>
+                <span v-if="!section_randbound" v-on:click="section_randbound = !section_randbound">[+]</span>
+                <span v-if="section_randbound" v-on:click="section_randbound = !section_randbound">[-]</span>
+                Random Bound Integer
+            </h2>
+            <div v-if="section_randbound">
+                <code
+                    v-if="implementation==='stateless'">randBound(counter:BigInt, key:BigInt, min:number, max:number):number</code>
+                <code v-if="implementation!=='stateless'">randBound(min:number, max:number):number</code>
+                <p>
+                    Produces a modulo biased bound integer inclusively <code>min</code> to <code>max</code>.
+                    <span v-if="implementation!=='stateless'">Every invocation will increment its
+                        <code>ctr()</code>.</span>
+                </p>
+                <p>
+                    When called 100 times
+                    <span v-if="implementation==='stateless'">with counter iterated each time</span>
+                    :
+                </p>
+                <canvas id="chart-randbound" ref="chart-randbound" width="512" height="256"></canvas>
+            </div>
+        </div>
+        <hr v-if="implementation=='stateful'" />
+        <div class="section" v-if="implementation=='stateful'">
+            <h2>
+                <span v-if="!section_randboundlemire"
+                    v-on:click="section_randboundlemire = !section_randboundlemire">[+]</span>
+                <span v-if="section_randboundlemire"
+                    v-on:click="section_randboundlemire = !section_randboundlemire">[-]</span>
+                Random Lemire Bound Integer
+            </h2>
+            <div v-if="section_randboundlemire">
+                <code>randBoundLemire(min:number, max:number):number</code>
+                <p>
+                    Produces a Lemire unbiased bound integer inclusively <code>min</code> to <code>max</code>.
+                    Every invocation will increment its <code>ctr()</code>.
+                </p>
+                <p> When called 100 times : </p>
+                <canvas id="chart-randboundlemire" ref="chart-randboundlemire" width="512" height="256"></canvas>
+            </div>
+        </div>
+    </div>
+    <div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="assets/js/chart.js"></script>
+        <script src="assets/js/app.js"></script>
+    </div>
+</body>
+
+</html>

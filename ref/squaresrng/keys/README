@@ -1,0 +1,10 @@
+
+This directory contains the keys program which creates the keys.h file
+
+keys from keys.h have different digits and assure sufficient change
+
+in ctr*key when calling the squares RNG.
+
+     make
+
+     make run
